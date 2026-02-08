@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shield, Users, Target, Award } from 'lucide-react';
+import { Shield, Target, Award } from 'lucide-react';
 
 const AboutPage: React.FC = () => {
     return (

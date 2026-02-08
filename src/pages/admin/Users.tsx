@@ -1,5 +1,5 @@
 import React from 'react';
-import { MoreVertical, User, Mail, Shield, CheckCircle, XCircle } from 'lucide-react';
+import { MoreVertical, User, Shield, CheckCircle, XCircle } from 'lucide-react';
 
 const Users: React.FC = () => {
     const users = [
@@ -53,8 +53,8 @@ const Users: React.FC = () => {
                                     </td>
                                     <td className="p-4">
                                         <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border ${user.status === 'Active'
-                                                ? 'bg-green-50 text-green-700 border-green-200'
-                                                : 'bg-slate-100 text-slate-500 border-slate-200'
+                                            ? 'bg-green-50 text-green-700 border-green-200'
+                                            : 'bg-slate-100 text-slate-500 border-slate-200'
                                             }`}>
                                             {user.status === 'Active' ? <CheckCircle size={12} /> : <XCircle size={12} />}
                                             {user.status}
