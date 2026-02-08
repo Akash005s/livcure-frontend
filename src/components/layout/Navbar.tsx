@@ -1,21 +1,12 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Menu, X, Pill } from 'lucide-react';
 import classNames from 'classnames';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation();
 
   const toggleMenu = () => setIsOpen(!isOpen);
-
-  const navLinks = [
-    { name: 'Home', path: '/#home' },
-    { name: 'How It Works', path: '/#how-it-works' },
-    { name: 'Medicines', path: '/medicines' },
-    { name: 'About', path: '/about' },
-    { name: 'Contact', path: '/#contact' },
-  ];
 
   return (
     <nav className="sticky top-0 z-50 w-full backdrop-blur-md bg-white/70 border-b border-white/20 shadow-sm transition-all duration-300">
@@ -32,21 +23,16 @@ const Navbar: React.FC = () => {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex gap-8 items-center">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.path}
-                className={classNames('text-sm font-medium transition-all duration-200 hover:text-primary-600 relative py-1', {
-                  'text-primary-600': location.hash === link.path.substring(1),
-                  'text-slate-600': location.hash !== link.path.substring(1),
-                })}
-              >
-                {link.name}
-              </a>
-            ))}
+            {/* Nav Links Removed as per request */}
           </div>
 
           <div className="hidden md:flex gap-4 items-center">
+            <Link
+              to="/medicines"
+              className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-primary-500 to-primary-600 rounded-full shadow-lg shadow-primary-500/30 hover:shadow-primary-500/50 hover:from-primary-600 hover:to-primary-700 transition-all duration-300 transform hover:-translate-y-0.5"
+            >
+              Buy
+            </Link>
             <Link
               to="/login"
               className="px-4 py-2 text-sm font-medium text-slate-700 hover:text-primary-600 transition-colors"
@@ -83,19 +69,13 @@ const Navbar: React.FC = () => {
         )}
       >
         <div className="px-4 pt-2 pb-6 space-y-2">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.path}
-              className={classNames('block px-4 py-3 rounded-xl text-base font-medium transition-colors', {
-                'bg-primary-50 text-primary-700': location.hash === link.path.substring(1),
-                'text-slate-600 hover:bg-slate-50 hover:text-primary-600': location.hash !== link.path.substring(1),
-              })}
-              onClick={() => setIsOpen(false)}
-            >
-              {link.name}
-            </a>
-          ))}
+          <Link
+            to="/medicines"
+            className="block px-4 py-3 rounded-xl text-base font-medium text-primary-600 bg-primary-50 hover:bg-primary-100 transition-colors"
+            onClick={() => setIsOpen(false)}
+          >
+            Medicines
+          </Link>
           <div className="pt-4 mt-4 border-t border-slate-100 grid grid-cols-2 gap-4">
             <Link
               to="/login"

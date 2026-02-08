@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ArrowRight, Pill } from 'lucide-react';
+import { ArrowRight, Pill, User, Stethoscope } from 'lucide-react';
 import Input from '../../components/ui/Input';
 import Button from '../../components/ui/Button';
+import classNames from 'classnames';
 
 const SignupPage: React.FC = () => {
     const navigate = useNavigate();
+    const [role, setRole] = useState<'user' | 'pharmacist'>('user');
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -21,9 +23,9 @@ const SignupPage: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
-        // Simulate signup
+        // Simulate signup including role
         await new Promise(resolve => setTimeout(resolve, 1500));
-        console.log('Signup:', formData);
+        console.log('Signup:', { ...formData, role });
         setIsLoading(false);
         navigate('/verify-otp');
     };
@@ -38,7 +40,7 @@ const SignupPage: React.FC = () => {
             </div>
 
             <div className="bg-white/80 backdrop-blur-xl rounded-2xl shadow-xl border border-white/50 p-8 md:p-12 w-full max-w-[500px] relative z-10 transition-all duration-300 hover:shadow-2xl hover:shadow-primary-100">
-                <div className="text-center mb-10">
+                <div className="text-center mb-8">
                     <Link to="/" className="inline-flex items-center gap-2 mb-6 group">
                         <div className="bg-gradient-to-br from-primary-400 to-primary-600 p-2 rounded-xl shadow-lg shadow-primary-500/30 group-hover:shadow-primary-500/50 transition-all duration-300">
                             <Pill size={24} className="text-white" />
@@ -49,6 +51,85 @@ const SignupPage: React.FC = () => {
                     </Link>
                     <h1 className="text-3xl font-bold text-slate-800 mb-2">Create Account</h1>
                     <p className="text-slate-500">Join LivCure for fast, reliable medicine delivery</p>
+                </div>
+
+                {/* Role Selection */}
+                <div className="grid grid-cols-2 gap-4 mb-8">
+                    <button
+                        type="button"
+                        onClick={() => setRole('user')}
+                        className={classNames(
+                            'relative p-4 rounded-xl border-2 transition-all duration-300 flex flex-col items-center gap-3 group overflow-hidden',
+                            {
+                                'border-primary-500 bg-primary-50/50 shadow-md shadow-primary-500/10': role === 'user',
+                                'border-slate-100 bg-white hover:border-primary-200 hover:bg-slate-50': role !== 'user',
+                            }
+                        )}
+                    >
+                        <div
+                            className={classNames(
+                                'p-3 rounded-full transition-colors duration-300',
+                                {
+                                    'bg-primary-500 text-white shadow-lg shadow-primary-500/30': role === 'user',
+                                    'bg-slate-100 text-slate-500 group-hover:bg-primary-100 group-hover:text-primary-600': role !== 'user',
+                                }
+                            )}
+                        >
+                            <User size={24} />
+                        </div>
+                        <span
+                            className={classNames(
+                                'font-semibold transition-colors duration-300',
+                                {
+                                    'text-primary-700': role === 'user',
+                                    'text-slate-600 group-hover:text-primary-600': role !== 'user',
+                                }
+                            )}
+                        >
+                            User
+                        </span>
+                        {role === 'user' && (
+                            <div className="absolute top-2 right-2 w-2 h-2 rounded-full bg-primary-500 animate-pulse" />
+                        )}
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={() => setRole('pharmacist')}
+                        className={classNames(
+                            'relative p-4 rounded-xl border-2 transition-all duration-300 flex flex-col items-center gap-3 group overflow-hidden',
+                            {
+                                'border-primary-500 bg-primary-50/50 shadow-md shadow-primary-500/10': role === 'pharmacist',
+                                'border-slate-100 bg-white hover:border-primary-200 hover:bg-slate-50': role !== 'pharmacist',
+                            }
+                        )}
+                    >
+                        <div
+                            className={classNames(
+                                'p-3 rounded-full transition-colors duration-300',
+                                {
+                                    'bg-primary-500 text-white shadow-lg shadow-primary-500/30': role === 'pharmacist',
+                                    'bg-slate-100 text-slate-500 group-hover:bg-primary-100 group-hover:text-primary-600': role !== 'pharmacist',
+                                }
+                            )}
+                        >
+                            <Stethoscope size={24} />
+                        </div>
+                        <span
+                            className={classNames(
+                                'font-semibold transition-colors duration-300',
+                                {
+                                    'text-primary-700': role === 'pharmacist',
+                                    'text-slate-600 group-hover:text-primary-600': role !== 'pharmacist',
+                                }
+                            )}
+                        >
+                            Pharmacist
+                        </span>
+                        {role === 'pharmacist' && (
+                            <div className="absolute top-2 right-2 w-2 h-2 rounded-full bg-primary-500 animate-pulse" />
+                        )}
+                    </button>
                 </div>
 
                 <form onSubmit={handleSubmit} className="flex flex-col gap-5">
@@ -98,7 +179,7 @@ const SignupPage: React.FC = () => {
                         isLoading={isLoading}
                         className="mt-2 group"
                     >
-                        Create Account
+                        Create {role === 'pharmacist' ? 'Pharmacist' : 'User'} Account
                         {!isLoading && <ArrowRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />}
                     </Button>
                 </form>

@@ -46,9 +46,9 @@ const Footer: React.FC = () => {
                     <div className="flex flex-col gap-6">
                         <h3 className="text-white text-lg font-semibold">Contact</h3>
                         <ul className="flex flex-col gap-3 text-sm">
-                            <li className="flex items-center gap-3"><MapPin size={16} className="text-primary-500" /> 123 Health Street, MedCity</li>
-                            <li className="flex items-center gap-3"><Phone size={16} className="text-primary-500" /> +1 234 567 8900</li>
-                            <li className="flex items-center gap-3"><Mail size={16} className="text-primary-500" /> support@livcure.com</li>
+                            <li className="flex items-center gap-3"><MapPin size={16} className="text-primary-500" /> Varanasi, Uttar Pradesh</li>
+                            <li className="flex items-center gap-3"><Phone size={16} className="text-primary-500" /> +91 8934053743</li>
+                            <li className="flex items-center gap-3"><Mail size={16} className="text-primary-500" /> makashkumarg@gmail.com</li>
                         </ul>
                     </div>
                 </div>

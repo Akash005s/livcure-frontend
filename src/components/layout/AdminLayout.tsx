@@ -1,11 +1,41 @@
 import React, { useState } from 'react';
-import { Outlet, Link } from 'react-router-dom';
-import { LayoutDashboard, Users, Settings, LogOut, Menu, X, Pill } from 'lucide-react';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
+import { LayoutDashboard, Users, Settings, LogOut, Menu, X, Pill, Stethoscope, ShoppingBag, FileText, Truck, CreditCard, BarChart2, Package } from 'lucide-react';
+import { useAuth } from '../../context/AuthContext';
+import { adminMenu, pharmacistMenu } from '../../data/menu';
 
 const AdminLayout: React.FC = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const { user, logout } = useAuth();
+    const navigate = useNavigate();
 
     const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+
+    const handleLogout = () => {
+        logout();
+        navigate('/login');
+    };
+
+    const menus = user?.role === 'pharmacist' ? pharmacistMenu : adminMenu;
+
+    const getIcon = (key: string) => {
+        switch (key) {
+            case 'dashboard': return <LayoutDashboard size={20} />;
+            case 'users': return <Users size={20} />;
+            case 'settings': return <Settings size={20} />;
+            case 'pharmacies': return <Pill size={20} />;
+            case 'medicines': return <Pill size={20} />;
+            case 'categories': return <Pill size={20} />; // Placeholder
+            case 'orders': return <ShoppingBag size={20} />;
+            case 'prescriptions': return <FileText size={20} />;
+            case 'customers': return <Users size={20} />;
+            case 'delivery': return <Truck size={20} />;
+            case 'payments': return <CreditCard size={20} />;
+            case 'reports': return <BarChart2 size={20} />;
+            case 'inventory': return <Package size={20} />;
+            default: return <LayoutDashboard size={20} />;
+        }
+    };
 
     return (
         <div className="flex h-screen bg-slate-50 font-sans text-slate-900">
@@ -17,9 +47,9 @@ const AdminLayout: React.FC = () => {
                 <div className="flex items-center justify-between p-6 border-b border-slate-100">
                     <Link to="/admin" className="flex items-center gap-2">
                         <div className="bg-primary-500 p-1.5 rounded-lg shadow-lg shadow-primary-500/20">
-                            <Pill size={20} className="text-white" />
+                            {user?.role === 'pharmacist' ? <Stethoscope size={20} className="text-white" /> : <Pill size={20} className="text-white" />}
                         </div>
-                        <span className="text-xl font-bold text-slate-800">LivCure Admin</span>
+                        <span className="text-xl font-bold text-slate-800">LivCure {user?.role === 'pharmacist' ? 'Pharmacist' : 'Admin'}</span>
                     </Link>
                     <button onClick={toggleSidebar} className="lg:hidden text-slate-400 hover:text-slate-600">
                         <X size={24} />
@@ -27,22 +57,20 @@ const AdminLayout: React.FC = () => {
                 </div>
 
                 <nav className="p-4 space-y-1">
-                    <Link to="/admin" className="flex items-center gap-3 px-3 py-2.5 text-slate-600 rounded-lg hover:bg-primary-50 hover:text-primary-600 transition-colors group">
-                        <LayoutDashboard size={20} className="group-hover:text-primary-600" />
-                        <span>Dashboard</span>
-                    </Link>
-                    <Link to="/admin/users" className="flex items-center gap-3 px-3 py-2.5 text-slate-600 rounded-lg hover:bg-primary-50 hover:text-primary-600 transition-colors group">
-                        <Users size={20} className="group-hover:text-primary-600" />
-                        <span>Users</span>
-                    </Link>
-                    <Link to="/admin/settings" className="flex items-center gap-3 px-3 py-2.5 text-slate-600 rounded-lg hover:bg-primary-50 hover:text-primary-600 transition-colors group">
-                        <Settings size={20} className="group-hover:text-primary-600" />
-                        <span>Settings</span>
-                    </Link>
+                    {menus.map((item) => (
+                        <Link
+                            key={item.key}
+                            to={item.path || '#'}
+                            className="flex items-center gap-3 px-3 py-2.5 text-slate-600 rounded-lg hover:bg-primary-50 hover:text-primary-600 transition-colors group"
+                        >
+                            <span className="group-hover:text-primary-600">{getIcon(item.key)}</span>
+                            <span>{item.label}</span>
+                        </Link>
+                    ))}
                 </nav>
 
                 <div className="absolute bottom-0 w-full p-4 border-t border-slate-100">
-                    <button className="flex items-center gap-3 px-3 py-2.5 w-full text-left text-red-600 rounded-lg hover:bg-red-50 transition-colors">
+                    <button onClick={handleLogout} className="flex items-center gap-3 px-3 py-2.5 w-full text-left text-red-600 rounded-lg hover:bg-red-50 transition-colors">
                         <LogOut size={20} />
                         <span>Logout</span>
                     </button>
@@ -58,11 +86,11 @@ const AdminLayout: React.FC = () => {
                     </button>
                     <div className="flex items-center gap-4 ml-auto">
                         <div className="flex flex-col text-right hidden sm:block">
-                            <span className="text-sm font-medium text-slate-900">Admin User</span>
-                            <span className="text-xs text-slate-500">admin@livcure.com</span>
+                            <span className="text-sm font-medium text-slate-900">{user?.name}</span>
+                            <span className="text-xs text-slate-500">{user?.email}</span>
                         </div>
                         <div className="h-10 w-10 rounded-full bg-primary-100 flex items-center justify-center text-primary-700 font-bold border border-primary-200">
-                            A
+                            {user?.name.charAt(0)}
                         </div>
                     </div>
                 </header>

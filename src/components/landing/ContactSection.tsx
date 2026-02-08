@@ -85,22 +85,22 @@ const ContactSection: React.FC = () => {
                                 <div className="flex items-start gap-4">
                                     <Phone className="mt-1 text-primary-200" size={20} />
                                     <div>
-                                        <p className="font-medium">+1 (555) 123-4567</p>
-                                        <p className="text-primary-200 text-sm">Mon-Fri 9am-6pm</p>
+                                        <p className="font-medium">+91 8934053743</p>
+                                        <p className="text-primary-200 text-sm">Mon-Fri 9am-6pm (Whatsapp Available)</p>
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-4">
                                     <Mail className="mt-1 text-primary-200" size={20} />
                                     <div>
-                                        <p className="font-medium">support@livcure.com</p>
+                                        <p className="font-medium">makashkumarg@gmail.com</p>
                                         <p className="text-primary-200 text-sm">Online Support</p>
                                     </div>
                                 </div>
                                 <div className="flex items-start gap-4">
                                     <MapPin className="mt-1 text-primary-200" size={20} />
                                     <div>
-                                        <p className="font-medium">123 Health Street</p>
-                                        <p className="text-primary-200 text-sm">New York, NY 10001</p>
+                                        <p className="font-medium">Varanasi, Uttar Pradesh</p>
+                                        <p className="text-primary-200 text-sm">India</p>
                                     </div>
                                 </div>
                             </div>

@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import WebLayout from './components/layout/WebLayout';
 import AdminLayout from './components/layout/AdminLayout';
+import UserLayout from './components/layout/UserLayout'; // Import UserLayout
 import LandingPage from './pages/LandingPage';
 import Dashboard from './pages/admin/Dashboard';
 import Users from './pages/admin/Users';
@@ -23,12 +24,18 @@ const router = createBrowserRouter([
                 element: <LandingPage />,
             },
             {
-                path: 'medicines',
-                element: <MedicinesPage />,
-            },
-            {
                 path: 'about',
                 element: <AboutPage />,
+            },
+        ],
+    },
+    {
+        path: '/',
+        element: <UserLayout />, // Use UserLayout
+        children: [
+            {
+                path: 'medicines',
+                element: <MedicinesPage />,
             },
         ],
     },
