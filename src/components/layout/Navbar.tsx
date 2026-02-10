@@ -27,12 +27,7 @@ const Navbar: React.FC = () => {
           </div>
 
           <div className="hidden md:flex gap-4 items-center">
-            <Link
-              to="/medicines"
-              className="px-5 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-primary-500 to-primary-600 rounded-full shadow-lg shadow-primary-500/30 hover:shadow-primary-500/50 hover:from-primary-600 hover:to-primary-700 transition-all duration-300 transform hover:-translate-y-0.5"
-            >
-              Buy
-            </Link>
+
             <Link
               to="/login"
               className="px-4 py-2 text-sm font-medium text-slate-700 hover:text-primary-600 transition-colors"
@@ -69,32 +64,24 @@ const Navbar: React.FC = () => {
         )}
       >
         <div className="px-4 pt-2 pb-6 space-y-2">
+
           <Link
-            to="/medicines"
-            className="block px-4 py-3 rounded-xl text-base font-medium text-primary-600 bg-primary-50 hover:bg-primary-100 transition-colors"
+            to="/login"
+            className="flex justify-center items-center px-4 py-3 rounded-xl border border-slate-200 text-slate-700 font-medium hover:bg-slate-50 transition-colors"
             onClick={() => setIsOpen(false)}
           >
-            Medicines
+            Login
           </Link>
-          <div className="pt-4 mt-4 border-t border-slate-100 grid grid-cols-2 gap-4">
-            <Link
-              to="/login"
-              className="flex justify-center items-center px-4 py-3 rounded-xl border border-slate-200 text-slate-700 font-medium hover:bg-slate-50 transition-colors"
-              onClick={() => setIsOpen(false)}
-            >
-              Login
-            </Link>
-            <Link
-              to="/signup"
-              className="flex justify-center items-center px-4 py-3 rounded-xl bg-primary-500 text-white font-medium hover:bg-primary-600 transition-colors shadow-lg shadow-primary-500/30"
-              onClick={() => setIsOpen(false)}
-            >
-              Sign Up
-            </Link>
-          </div>
+          <Link
+            to="/signup"
+            className="flex justify-center items-center px-4 py-3 rounded-xl bg-primary-500 text-white font-medium hover:bg-primary-600 transition-colors shadow-lg shadow-primary-500/30"
+            onClick={() => setIsOpen(false)}
+          >
+            Sign Up
+          </Link>
         </div>
       </div>
-    </nav>
+    </nav >
   );
 };
 
